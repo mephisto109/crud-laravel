@@ -34,6 +34,9 @@ class AuthController extends Controller
             'g-recaptcha-response.required' => 'Silakan centang captcha terlebih dahulu!',
         ]);
 
+    \Log::info('Token captcha diterima:', ['token' => $request->input('g-recaptcha-response'), 'panjang' => strlen((string) $request->input('g-recaptcha-response'))]);
+
+
         // Verifikasi ke Google cuma dijalanin kalau captcha aktif
         if (config('services.recaptcha.enabled')) {
             $verifikasi = Http::asForm()->post('https://www.google.com/recaptcha/api/siteverify', [
